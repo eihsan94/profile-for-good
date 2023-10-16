@@ -1,6 +1,7 @@
 import Nav from "@/components/navbars";
 import { ArrowDownIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Button, Chip, Image } from "@nextui-org/react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -24,7 +25,9 @@ export default function Home() {
               best light for job applications, social networking, and beyond.
             </p>
             <div className="mt-6 flex items-center justify-center lg:mt-8">
-              <Button color="primary">Create yours now</Button>
+              <Button color="primary" as={Link} href="/home">
+                Create yours now
+              </Button>
             </div>
           </div>
         </div>

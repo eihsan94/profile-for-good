@@ -4,15 +4,15 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
   Button,
 } from "@nextui-org/react";
 import { Logo } from "./logo";
+import Link from "next/link";
 
 export default function Nav() {
   return (
     <Navbar className="border-b-1 border-gray-150">
-      <NavbarBrand>
+      <NavbarBrand as={Link} href="/">
         <Logo />
         <h1 className="ml-2 lg:ml-4 text-lg lg:text-3xl font-semibold text-inherit">
           Profile For Good
