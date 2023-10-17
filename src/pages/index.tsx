@@ -1,9 +1,12 @@
 import Nav from "@/components/navbars";
+import { SSRAuthGuard } from "@/server-utils/isAuth.utils";
 import { ArrowDownIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Button, Chip, Image } from "@nextui-org/react";
+import Passage from "@passageidentity/passage-node";
+import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
 
-export default function Home() {
+export default function Index() {
   return (
     <div>
       <Nav />
@@ -52,4 +55,8 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  return await SSRAuthGuard(context);
 }

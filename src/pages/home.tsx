@@ -1,12 +1,24 @@
 import { ImageDrop } from "@/components/image-drop";
 import { Layout } from "@/components/layout";
+import { useAuth } from "@/contexts/auth-context";
+import { SSRAuthGuard } from "@/server-utils/isAuth.utils";
 import { Button, Card, Image, Navbar } from "@nextui-org/react";
+import Passage from "@passageidentity/passage-node";
 import { motion, AnimatePresence } from "framer-motion"; // Import motion and AnimatePresence
-import React, { useState } from "react";
+import { GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
-export default function Home() {
+export default function Home({ isAuthorized }: { isAuthorized: boolean }) {
   const [imageBin, setImageBin] = useState<string[]>([]);
   const isImageBinNotEmpty = imageBin.length > 0;
+  const router = useRouter();
+  useEffect(() => {
+    if (!isAuthorized) {
+      router.push("/auth");
+    }
+  }),
+    [isAuthorized];
 
   return (
     <Layout>
@@ -54,4 +66,8 @@ export default function Home() {
       </AnimatePresence>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  return await SSRAuthGuard(context);
 }
