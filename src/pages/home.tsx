@@ -1,9 +1,7 @@
 import { ImageDrop } from "@/components/image-drop";
 import { Layout } from "@/components/layout";
-import { useAuth } from "@/contexts/auth-context";
 import { SSRAuthGuard } from "@/server-utils/isAuth.utils";
-import { Button, Card, Image, Navbar } from "@nextui-org/react";
-import Passage from "@passageidentity/passage-node";
+import { Button, Card, Image, Navbar, Spinner } from "@nextui-org/react";
 import { motion, AnimatePresence } from "framer-motion"; // Import motion and AnimatePresence
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
@@ -11,6 +9,7 @@ import React, { useEffect, useState } from "react";
 
 export default function Home({ isAuthorized }: { isAuthorized: boolean }) {
   const [imageBin, setImageBin] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const isImageBinNotEmpty = imageBin.length > 0;
   const router = useRouter();
   useEffect(() => {
@@ -26,6 +25,7 @@ export default function Home({ isAuthorized }: { isAuthorized: boolean }) {
         <h1 className="text-4xl pt-10 font-bold">Upload your photos</h1>
         <div className="mt-10 grid grid-cols-12 gap-4 h-[400px] lg:h-[400px] px-4 lg:px-0">
           <ImageDrop
+            setIsLoading={setIsLoading}
             setFileData={setImageBin}
             className="col-span-12 lg:col-span-6"
           />
@@ -34,6 +34,7 @@ export default function Home({ isAuthorized }: { isAuthorized: boolean }) {
               Selected Photos will be shown here
             </div>
             <div className="flex flex-wrap gap-6 p-4 justify-center h-full">
+              {isLoading && <Spinner />}
               {imageBin.map((image, index) => (
                 <Image
                   key={index}

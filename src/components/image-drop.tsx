@@ -1,15 +1,17 @@
 import { classNames } from "@/utils/classnames";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 interface Props {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setFileData: React.Dispatch<React.SetStateAction<string[]>>;
   className?: string;
 }
 
-export function ImageDrop({ setFileData, className }: Props) {
+export function ImageDrop({ setFileData, setIsLoading, className }: Props) {
   const onDrop = useCallback(
     async (files: File[]) => {
+      setIsLoading(true);
       const fileDataPromises: Promise<string>[] = [];
 
       // Iterate over each file and create a Promise for each FileReader
@@ -34,8 +36,9 @@ export function ImageDrop({ setFileData, className }: Props) {
 
       // Set the image data to state
       setFileData(fileData);
+      setIsLoading(false);
     },
-    [setFileData]
+    [setFileData, setIsLoading]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
