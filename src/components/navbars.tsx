@@ -33,44 +33,10 @@ export default function Nav() {
   };
   return (
     <Navbar className="border-b-1 border-gray-150">
-      <NavbarBrand as={Link} href="/">
-        <Logo />
-        <h1 className="ml-2 lg:ml-4 text-lg lg:text-3xl font-semibold text-inherit">
-          Profile For Good
-        </h1>
-      </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link href="#" aria-current="page">
-            Success Stories
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Our Mission
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarContent justify="end">
-        {isAuthorized ? (
-          <NavbarItem>
-            <Button isLoading={loadingSignOut} onClick={signOut}>
-              Sign Out
-            </Button>
-          </NavbarItem>
-        ) : (
-          <NavbarItem>
-            <Button as={Link} color="primary" href="/auth">
-              Login
-            </Button>
-          </NavbarItem>
-        )}
-      </NavbarContent>
+      <NavbarBrand as={Link} href="/"></NavbarBrand>
+      <NavbarContent
+        className="hidden sm:flex gap-4"
+        justify="center"></NavbarContent>
     </Navbar>
   );
 }

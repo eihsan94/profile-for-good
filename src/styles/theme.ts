@@ -1,11 +1,6 @@
 import { NextUIPluginConfig } from "@nextui-org/react";
 
 export const theme: NextUIPluginConfig = {
-  layout: {
-    radius: {
-      medium: "100px", // rounded-medium
-    },
-  },
   themes: {
     light: {
       colors: {

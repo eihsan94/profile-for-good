@@ -1,22 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Nav from "./navbars";
-import { useAuth } from "@/contexts/auth-context";
+import { Sidebar } from "./sidebar";
 
 interface Props {
   children: React.ReactNode;
 }
 
 export function Layout({ children }: Props) {
-  const { isAuthorized } = useAuth();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    isAuthorized && (
-      <div>
-        <Nav />
-        <div className="w-full flex justify-center items-center ">
-          <div className="max-w-6xl">{children}</div>
-        </div>
-      </div>
-    )
+    <div>
+      <Sidebar setSidebarOpen={setSidebarOpen} sidebarOpen={sidebarOpen} />
+      {/* <Nav /> */}
+      <div className="max-w-6xl">{children}</div>
+    </div>
   );
 }

@@ -8,10 +8,12 @@ interface Props {
   className?: string;
 }
 
-export function ImageDrop({ setFileData, setIsLoading, className }: Props) {
+export function FileDrop({ setFileData, setIsLoading, className }: Props) {
+  const [isConverting, setIsConverting] = useState(false);
   const onDrop = useCallback(
     async (files: File[]) => {
       setIsLoading(true);
+      setIsConverting(true);
       const fileDataPromises: Promise<string>[] = [];
 
       // Iterate over each file and create a Promise for each FileReader
@@ -37,6 +39,7 @@ export function ImageDrop({ setFileData, setIsLoading, className }: Props) {
       // Set the image data to state
       setFileData(fileData);
       setIsLoading(false);
+      setIsConverting(false);
     },
     [setFileData, setIsLoading]
   );
@@ -55,11 +58,16 @@ export function ImageDrop({ setFileData, setIsLoading, className }: Props) {
           accept: "image/*",
         })}
       />
-      {isDragActive ? (
-        <p className="text-gray-600">Drop the images here ...</p>
+      {isConverting ? (
+        <p className="text-gray-600">
+          <span className="animate-pulse">Uploading...</span>
+        </p>
+      ) : isDragActive ? (
+        <p className="text-gray-600">Drop the file here ...</p>
       ) : (
         <p className="text-gray-600">
-          Drag n drop some images here, or click to select images
+          Drag n drop any files (video, image, pdf) here, or click to select
+          files
         </p>
       )}
     </div>
